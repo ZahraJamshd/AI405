@@ -1,7 +1,10 @@
-torch
-torchaudio
-speechbrain
-silero-vad
-scikit-learn
-matplotlib
-soundfile
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+numpy==2.0.2
+torch==2.11.0+cpu
+torchaudio==2.11.0+cpu
+speechbrain==1.1.0
+silero-vad==6.2.1
+scikit-learn==1.6.1
+matplotlib==3.10.0
+soundfile==0.14.0
