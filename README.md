@@ -2,27 +2,42 @@
 
 This repository contains the T-03 final project for the Artificial Intelligence course.
 
-The project studies a lightweight serial pipeline for detecting speech and identifying enrolled speakers in continuous meeting audio.
+The project evaluates a lightweight serial pipeline for detecting speech and identifying enrolled speakers in continuous meeting audio.
 
-## Phase 1
+## Dataset and Baseline
 
-Phase 1 uses three recordings from the AMI Meeting Corpus: `ES2002d`, `ES2008d`, and `ES2014d`. The selected data contains 12 meeting-speaker identities and three 300-second evaluation excerpts containing speech, silence, and overlapping speech.
+The project uses three recordings from the AMI Meeting Corpus: `ES2002d`, `ES2008d`, and `ES2014d`. The selected data contains 12 meeting-speaker identities and three continuous 300-second evaluation excerpts containing speech, silence, speaker changes, and overlapping speech.
 
-The baseline uses:
+The pipeline uses:
 
-- A pretrained Silero VAD for speech-interval detection.
+- A pretrained Silero VAD model for speech-interval detection.
 - A pretrained SpeechBrain ECAPA-TDNN model for 192-dimensional speaker embeddings.
 - Five clean enrollment segments per speaker.
 - Cosine similarity against 12 enrolled speaker centroids.
+- A simple similarity-margin heuristic for exploratory overlap analysis.
 
-Phase 1 configures and verifies the two baseline components. Final VAD F1, top-1 speaker-identification accuracy, and error analysis are reserved for Phase 2.
+No model training or fine-tuning is performed.
+
+## Evaluation Results
+
+The serial pipeline processes 256 VAD-detected intervals across 15 minutes of evaluation audio.
+
+- Overall frame-level VAD F1: `0.9028`
+- Overall top-1 speaker-identification accuracy: `0.9125`
+- Eligible single-speaker intervals: `160`
+- Short-interval speaker accuracy: `0.8500`
+- Long-interval speaker accuracy: `0.9750`
+- Exact overlap-pair matches: `1` out of `59`
+
+The overlap result is exploratory and is not treated as a main evaluation metric.
 
 ## Repository Files
 
-- `T03.ipynb`: Notebook containing the Phase 1 baseline setup.
+- `T03.ipynb`: Executed Colab notebook containing the baseline, serial pipeline, evaluation, error analysis, and demo.
 - `Phase1.pdf`: Phase 1 report.
-- `requirements.txt`: pinned Python dependencies.
-- `README.md`: project overview and execution instructions.
+- `Phase2.pdf`: Phase 2 report.
+- `requirements.txt`: Pinned Python dependencies.
+- `README.md`: Project overview and execution instructions.
 
 ## Running the Notebook
 
@@ -33,4 +48,4 @@ Phase 1 configures and verifies the two baseline components. Final VAD F1, top-1
 
 ## Project Status
 
-Phase 1 completed. Phase 2 will connect Silero VAD and ECAPA-TDNN serially and evaluate the pipeline on the selected continuous excerpts.
+Phase 1 and Phase 2 are complete.
